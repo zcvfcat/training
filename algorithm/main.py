@@ -1,12 +1,14 @@
-from sys import stdin
-n = int(stdin.readline())
-cost = [0] + list(map(int, stdin.readline().split()))
-dp = [0] * (n+1)
-
-dp[1] = cost[1]
-
-for i in range(2, n+1):
-    for j in range(j+1):
-        if dp[i] < dp[i-j] + cost[j]:
-            dp[i] = dp[i-j] + cost[j]
-print(dp[n])
+n = int(input())
+s = list(map(int, input().split()))
+dp = []
+dp.append(1)
+for i in range(1, n):
+    d = []
+    for j in range(i):
+        if s[i] > s[j]:
+            d.append(dp[j] + 1)
+    if not d:
+        dp.append(1)
+    else:
+        dp.append(max(d))
+print(max(dp))
