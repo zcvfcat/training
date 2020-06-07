@@ -1,14 +1,11 @@
-n = int(input())
-s = list(map(int, input().split()))
-dp = []
-dp.append(1)
-for i in range(1, n):
-    d = []
-    for j in range(i):
-        if s[i] > s[j]:
-            d.append(dp[j] + 1)
-    if not d:
-        dp.append(1)
-    else:
-        dp.append(max(d))
-print(max(dp))
+n, m = map(int, input().split())
+lst = [list(map(int, list(input().rstrip()))) for _ in range(n)]
+ans = 0
+
+for i in range(n):
+    for j in range(m):
+        if i > 0 and j > 0 and lst[i][j] == 1:
+            lst[i][j] += min(lst[i - 1][j], lst[i][j - 1], lst[i - 1][j - 1])
+        ans = max(ans, lst[i][j])
+
+print(ans * ans)
