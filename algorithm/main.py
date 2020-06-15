@@ -1,25 +1,15 @@
-n, s, m = map(int, input().split())
-lst = list(map(int, input().split()))
+t = int(input())
 
-dp1 = [0] * (m + 1)
-dp2 = [0] * (m + 1)
+for _ in range(t):
+    n = int(input())
+    c = [*map(int, input().split())]
+    m = int(input())
 
-dp1[s] = 1
+    d = [0 for _ in range(m + 1)]
+    d[0] = 1
 
-for v in lst:
-    for i in range(m + 1):
-        if dp1[i]:
-            if i + v <= m:
-                dp2[i + v] = 1
-            if i - v >= 0:
-                dp2[i - v] = 1
-    dp1 = dp2
-    dp2 = [0] * (m + 1)
+    for coin in c:
+        for m in range(coin, m + 1):
+            d[m] = d[m] + d[m - coin]
 
-ans = -1
-for i in range(m, -1, -1):
-    if dp1[i]:
-        ans = i
-        break
-
-print(ans)
+    print(d.pop())
