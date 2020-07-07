@@ -1,15 +1,11 @@
-t = int(input())
+MAX_N = 65
+dp = [[0] * 10 for _ in range(MAX_N)]
 
-for _ in range(t):
-    n = int(input())
-    c = [*map(int, input().split())]
-    m = int(input())
+dp[0][0] = 1
+for a in range(MAX_N):
+    for b in range(10):
+        for c in range(b + 1):
+            dp[a][b] += dp[a - 1][c]
 
-    d = [0 for _ in range(m + 1)]
-    d[0] = 1
-
-    for coin in c:
-        for m in range(coin, m + 1):
-            d[m] = d[m] + d[m - coin]
-
-    print(d.pop())
+for _ in range(int(input())):
+    print(sum(dp[int(input())]))
